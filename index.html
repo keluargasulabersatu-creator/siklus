@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Siklus Instruksi CPU — Fetch Decode Execute Write Back</title>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--accent:#ffcc00;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#e6eef8;background:linear-gradient(180deg,#071029 0%, #071a2a 60%);}
+    .wrap{max-width:980px;margin:36px auto;padding:28px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(2,6,23,0.6);} 
+    h1{margin:0 0 8px;font-size:22px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .flow{display:flex;gap:14px;align-items:center;justify-content:space-between;margin:20px 0}
+    .stage{flex:1;min-width:140px;background:var(--glass);padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);text-align:center}
+    .stage h3{margin:4px 0 6px;font-size:15px}
+    .stage p{margin:0;color:var(--muted);font-size:13px}
+    .arrow{width:36px;text-align:center;color:var(--muted);font-weight:700}
+    pre{background:#071429;padding:16px;border-radius:8px;color:#dff0c6;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
+    .details{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+    .card{background:rgba(255,255,255,0.02);padding:14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+    .small{font-size:13px;color:var(--muted)}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    /* responsive */
+    @media(max-width:720px){.details{grid-template-columns:1fr}.flow{flex-direction:column}.arrow{display:none}}
+    /* simple SVG flow diagram */
+    .diagram{display:flex;justify-content:center;margin-top:16px}
+    svg{max-width:100%;height:auto}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Siklus Instruksi CPU</h1>
+    <p class="lead">Penjelasan singkat tentang tahapan tiap instruksi yang dijalankan CPU: <strong>Fetch → Decode → Execute → Write Back</strong>.</p>
+
+    <section class="flow" aria-label="Tahapan siklus instruksi">
+      <div class="stage" role="article">
+        <div style="font-size:28px">📥</div>
+        <h3>1. Fetch</h3>
+        <p>Ambil instruksi dari memori menggunakan alamat di Program Counter (PC). Disimpan di Instruction Register (IR).</p>
+      </div>
+      <div class="arrow">➜</div>
+      <div class="stage" role="article">
+        <div style="font-size:28px">🧭</div>
+        <h3>2. Decode</h3>
+        <p>Control Unit membaca opcode & operand untuk menentukan operasi yang harus dijalankan.</p>
+      </div>
+      <div class="arrow">➜</div>
+      <div class="stage" role="article">
+        <div style="font-size:28px">⚙️</div>
+        <h3>3. Execute</h3>
+        <p>ALU atau unit lain menjalankan operasi (aritmetika, logika, memori, kontrol).</p>
+      </div>
+      <div class="arrow">➜</div>
+      <div class="stage" role="article">
+        <div style="font-size:28px">💾</div>
+        <h3>4. Write Back</h3>
+        <p>Simpan hasil ke register, memori, atau perangkat I/O agar tersedia untuk instruksi berikutnya.</p>
+      </div>
+    </section>
+
+    <div class="diagram" aria-hidden="true">
+      <!-- Simple SVG timeline -->
+      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram siklus instruksi">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1">
+            <stop offset="0" stop-color="#ffcc00" stop-opacity="0.9"/>
+            <stop offset="1" stop-color="#ffd7a8" stop-opacity="0.6"/>
+          </linearGradient>
+        </defs>
+        <rect x="20" y="18" width="160" height="84" rx="10" fill="#071a2a" stroke="#183046"/>
+        <rect x="200" y="18" width="160" height="84" rx="10" fill="#071a2a" stroke="#183046"/>
+        <rect x="380" y="18" width="160" height="84" rx="10" fill="#071a2a" stroke="#183046"/>
+        <rect x="560" y="18" width="160" height="84" rx="10" fill="#071a2a" stroke="#183046"/>
+        <text x="100" y="44" fill="#fff" text-anchor="middle" font-size="14">FETCH</text>
+        <text x="100" y="66" fill="#9fb8d6" text-anchor="middle" font-size="12">PC → MAR → MDR → IR</text>
+        <text x="280" y="44" fill="#fff" text-anchor="middle" font-size="14">DECODE</text>
+        <text x="280" y="66" fill="#9fb8d6" text-anchor="middle" font-size="12">Control Unit (opcode)</text>
+        <text x="460" y="44" fill="#fff" text-anchor="middle" font-size="14">EXECUTE</text>
+        <text x="460" y="66" fill="#9fb8d6" text-anchor="middle" font-size="12">ALU / Unit</text>
+        <text x="640" y="44" fill="#fff" text-anchor="middle" font-size="14">WRITE BACK</text>
+        <text x="640" y="66" fill="#9fb8d6" text-anchor="middle" font-size="12">Register / Memori</text>
+        <!-- arrows -->
+        <path d="M180 60 L198 60" stroke="#7fb0d6" stroke-width="3" marker-end="url(#a)"/>
+        <path d="M360 60 L378 60" stroke="#7fb0d6" stroke-width="3"/>
+        <path d="M540 60 L558 60" stroke="#7fb0d6" stroke-width="3"/>
+      </svg>
+    </div>
+
+    <div class="details">
+      <div class="card">
+        <strong>Komponen utama</strong>
+        <ul class="small">
+          <li><strong>PC (Program Counter)</strong>: alamat instruksi berikutnya.</li>
+          <li><strong>IR (Instruction Register)</strong>: menyimpan instruksi sekarang.</li>
+          <li><strong>CU (Control Unit)</strong>: mengatur & decode instruksi.</li>
+          <li><strong>ALU</strong>: melakukan operasi aritmetika & logika.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Ringkasan singkat</strong>
+        <p class="small">Siklus berulang terus selama program berjalan: CPU fetch instruksi, decode, execute, write back. Banyak arsitektur modern menambahkan tahapan pipelining dan optimisasi agar beberapa instruksi dapat diproses secara bersamaan.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:18px">Contoh urutan (singkat)</h3>
+    <pre><code>Fetch -> Decode -> Execute -> Write Back
+(PC update) -> Fetch next instruction
+</code></pre>
+
+    <footer>Butuh versi yang bisa di-download (.html) atau ingin saya ubah jadi slide/diagram yang lebih besar?</footer>
+  </main>
+</body>
+</html>
